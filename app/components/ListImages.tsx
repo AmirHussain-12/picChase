@@ -30,27 +30,39 @@ const ListImages: FC<ListImagesProps> = ({images, setVisible, setItem}) => {
   };
 
   return (
-    <FlatList
-      data={images}
-      numColumns={2}
-      keyExtractor={item => item.id}
-      renderItem={({item}) => {
-        return (
-          <TouchableOpacity
-            style={styles.imageView}
-            activeOpacity={1}
-            onPress={() => handleClick(item)}>
-            <View style={styles.btnStyle}>
-              <ViewIcon />
-              <Text style={{marginStart: 5, color: '#fff', fontWeight: '700'}}>
-                {item?.views}
-              </Text>
-            </View>
-            <Image style={styles.medium} source={{uri: item?.largeImageURL}} />
-          </TouchableOpacity>
-        );
-      }}
-    />
+    <>
+      {images.length !== 0 ? (
+        <FlatList
+          data={images}
+          numColumns={2}
+          keyExtractor={item => item.id}
+          renderItem={({item}) => {
+            return (
+              <TouchableOpacity
+                style={styles.imageView}
+                activeOpacity={1}
+                onPress={() => handleClick(item)}>
+                <View style={styles.btnStyle}>
+                  <ViewIcon />
+                  <Text
+                    style={{marginStart: 5, color: '#fff', fontWeight: '700'}}>
+                    {item?.views}
+                  </Text>
+                </View>
+                <Image
+                  style={styles.medium}
+                  source={{uri: item?.largeImageURL}}
+                />
+              </TouchableOpacity>
+            );
+          }}
+        />
+      ) : (
+        <View style={styles.noImg}>
+          <Text style={styles.notFoundText}>No Result Found</Text>
+        </View>
+      )}
+    </>
   );
 };
 
@@ -77,5 +89,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     zIndex: 1,
     flexDirection: 'row',
+  },
+  noImg: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  notFoundText: {
+    fontSize: 20,
+    fontWeight: '700',
   },
 });
