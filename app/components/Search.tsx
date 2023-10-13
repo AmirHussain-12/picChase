@@ -48,13 +48,14 @@ const Search: React.FC<SearchProps> = ({
             placeholder="Search for images..."
           />
         </View>
-        <TouchableOpacity onPress={handleSearch} style={styles.btn}>
+        <TouchableOpacity
+          testID="search-button"
+          onPress={handleSearch}
+          style={styles.btn}>
           <SearchIcon />
         </TouchableOpacity>
       </View>
-      {errors && (
-        <Text style={{color: 'red', marginVertical: 10}}>{errors}</Text>
-      )}
+      {errors && <Text style={styles.errors}>{errors}</Text>}
     </>
   );
 };
@@ -119,4 +120,5 @@ const styles = StyleSheet.create({
     color: '#333',
     fontSize: 14,
   },
+  errors: {color: 'red', marginVertical: 10},
 });

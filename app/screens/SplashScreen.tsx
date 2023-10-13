@@ -14,7 +14,7 @@ export default function SplashScreen() {
 
   return (
     <View style={styles.container}>
-      <LogoIcon />
+      <LogoIcon testID="logo-icon" />
     </View>
   );
 }
