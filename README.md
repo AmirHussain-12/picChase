@@ -26,13 +26,7 @@ In the development of this app, the following assumptions and decisions have bee
 
 - **Algorithm:** Assuming in a spell checker, replacing vowels with vowels is the current algorithm. If the need arises to replace them with English alphabets, a single line in the `spellChecker.ts` must be modified.
 
-Replace
-
-`word = word.replace(/[aeiou]/g, '[aeiou]');` 
-
-with 
-
-`word = word.replace(/[aeiou]/g, '.');`
+   Replace `word = word.replace(/[aeiou]/g, '[aeiou]');` with `word = word.replace(/[aeiou]/g, '.');`
 
 ## Demo
 
@@ -58,7 +52,7 @@ with
 
 2. Go to the project directory:
  ```
- cd appstem_prototype
+ cd picChase
  ```
 
 3. Install dependencies:
