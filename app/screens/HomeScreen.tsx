@@ -22,7 +22,7 @@ export default function HomeScreen({}: HomeScreenProps) {
   const handleSpellChecker = async () => {
     const response = await spellChecker(searchTerm);
     setSuggessions(response.slice(1, response.length));
-    setQuery(searchTerm);
+    setQuery(response[0]);
     getResponse(response[0]);
   };
 
@@ -43,7 +43,7 @@ export default function HomeScreen({}: HomeScreenProps) {
 
   return (
     <View style={styles.container}>
-      <View style={{justifyContent: 'center', alignItems: 'center'}}>
+      <View style={styles.icon}>
         <HomeIcon />
       </View>
       <View style={styles.mb}>
@@ -54,25 +54,26 @@ export default function HomeScreen({}: HomeScreenProps) {
           setLoader={setLoader}
         />
       </View>
-
-      {suggessions?.length > 0 && (
-        <>
-          <Text style={styles.suggestionHeaderText}>
-            You searched <Text style={styles.boldText}>{query}</Text>
-          </Text>
-          <Suggessions
-            handleClick={getResponse}
-            suggessions={suggessions}
-            searchTerm={searchTerm}
-          />
-        </>
-      )}
+      <View style={styles.mh}>
+        {suggessions?.length > 0 && (
+          <>
+            <Text style={styles.suggestionHeaderText}>
+              Show results of <Text style={styles.boldText}>{query}</Text>
+            </Text>
+            <Suggessions
+              handleClick={getResponse}
+              suggessions={suggessions}
+              searchTerm={searchTerm}
+            />
+          </>
+        )}
+      </View>
       {loader ? (
         <View style={styles.center}>
           <ActivityIndicator
             size="large"
             color="lightblue"
-            style={{transform: [{scaleX: 1.5}, {scaleY: 1.5}]}}
+            style={styles.loader}
           />
         </View>
       ) : (
@@ -109,9 +110,13 @@ const styles = StyleSheet.create({
   },
   suggestionHeaderText: {
     fontSize: 16,
-    marginVertical: 5,
   },
   boldText: {
     fontWeight: 'bold',
   },
+  mh: {
+    marginHorizontal: 10,
+  },
+  icon: {justifyContent: 'center', alignItems: 'center'},
+  loader: {transform: [{scaleX: 1.5}, {scaleY: 1.5}]},
 });

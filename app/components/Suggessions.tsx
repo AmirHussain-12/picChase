@@ -20,9 +20,6 @@ const Suggestions: React.FC<SuggestionsProps> = ({
   };
   return (
     <View>
-      <Text style={styles.suggestionHeaderText}>
-        Show results of <Text style={styles.boldText}>{selected}</Text>
-      </Text>
       <FlatList
         data={suggessions}
         horizontal

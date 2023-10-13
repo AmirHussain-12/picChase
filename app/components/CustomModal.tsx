@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   Text,
+  Dimensions,
 } from 'react-native';
 import CommentIcon from '../assets/commentIcon';
 import CrossIcon from '../assets/crossIcon';
@@ -16,6 +17,11 @@ interface ModalProps {
   closeModal: any;
   item: any;
 }
+
+const isPortrait = () => {
+  const dim = Dimensions.get('screen');
+  return dim.height >= dim.width;
+};
 
 export default function CustomModal({visible, closeModal, item}: ModalProps) {
   return (
@@ -33,34 +39,26 @@ export default function CustomModal({visible, closeModal, item}: ModalProps) {
         ]}
         onRequestClose={closeModal}>
         <TouchableOpacity
+          testID="outer-modal-area"
           style={styles.modalContainer}
           activeOpacity={1}
           onPress={closeModal}>
           <View style={styles.modalContent}>
-            <TouchableOpacity style={styles.btnStyle} onPress={closeModal}>
+            <TouchableOpacity
+              testID="close-button"
+              style={styles.btnStyle}
+              onPress={closeModal}>
               <View style={styles.cross}>
                 <CrossIcon />
               </View>
             </TouchableOpacity>
             <Image source={{uri: item?.largeImageURL}} style={styles.img} />
-            <View
-              style={{
-                width: '100%',
-                justifyContent: 'space-between',
-                flexDirection: 'row',
-                backgroundColor: '#fff',
-                alignItems: 'center',
-                padding: 10,
-              }}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}>
+            <View style={styles.mainView}>
+              <View style={styles.box}>
                 <LikeIcon />
-                <Text style={{marginHorizontal: 5}}>{item?.likes}</Text>
+                <Text style={styles.mh}>{item?.likes}</Text>
                 <CommentIcon />
-                <Text style={{marginHorizontal: 5}}>{item?.comments}</Text>
+                <Text style={styles.mh}>{item?.comments}</Text>
               </View>
               <View>
                 <Text>views {item?.views}</Text>
@@ -86,7 +84,12 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     width: '90%',
-    height: '50%',
+    height: isPortrait()
+      ? Dimensions.get('window').height * 0.35
+      : Dimensions.get('window').height * 0.6,
+    maxHeight: isPortrait()
+      ? Dimensions.get('window').height * 0.35
+      : Dimensions.get('window').height * 0.6,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
@@ -110,4 +113,19 @@ const styles = StyleSheet.create({
   },
   cross: {width: 40, height: 40},
   img: {flex: 1, width: '100%', height: '100%', overflow: 'hidden'},
+  mainView: {
+    width: '100%',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    padding: 10,
+  },
+  box: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  mh: {
+    marginHorizontal: 5,
+  },
 });

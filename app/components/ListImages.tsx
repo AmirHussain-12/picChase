@@ -44,10 +44,7 @@ const ListImages: FC<ListImagesProps> = ({images, setVisible, setItem}) => {
                 onPress={() => handleClick(item)}>
                 <View style={styles.btnStyle}>
                   <ViewIcon />
-                  <Text
-                    style={{marginStart: 5, color: '#fff', fontWeight: '700'}}>
-                    {item?.views}
-                  </Text>
+                  <Text style={styles.views}>{item?.views}</Text>
                 </View>
                 <Image
                   style={styles.medium}
@@ -99,4 +96,5 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '700',
   },
+  views: {marginStart: 5, color: '#fff', fontWeight: '700'},
 });
