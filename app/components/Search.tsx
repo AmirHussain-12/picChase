@@ -11,9 +11,16 @@ import SearchIcon from '../assets/searchIcon';
 interface SearchProps {
   searchTerm: string;
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+  handleSpellChecker: () => void;
+  setLoader: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Search: React.FC<SearchProps> = ({searchTerm, setSearchTerm}) => {
+const Search: React.FC<SearchProps> = ({
+  searchTerm,
+  setSearchTerm,
+  handleSpellChecker,
+  setLoader,
+}) => {
   const [errors, setErrors] = useState<string>('');
 
   const handleSearch = async () => {
@@ -22,6 +29,11 @@ const Search: React.FC<SearchProps> = ({searchTerm, setSearchTerm}) => {
       return;
     }
     setErrors('');
+    setLoader(true);
+    await handleSpellChecker();
+    setTimeout(() => {
+      setLoader(false);
+    }, 300);
   };
 
   return (

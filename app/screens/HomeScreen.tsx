@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, Alert, StyleSheet, ActivityIndicator} from 'react-native';
 import CustomModal from '../components/CustomModal';
+import {spellChecker} from '../services/spellChecker';
 import ListImages from '../components/ListImages';
 import Search from '../components/Search';
 import {getImages} from '../services/getImage';
+import Suggessions from '../components/Suggessions';
 import HomeIcon from '../assets/homeIcon';
 
 interface HomeScreenProps {}
@@ -11,9 +13,18 @@ interface HomeScreenProps {}
 export default function HomeScreen({}: HomeScreenProps) {
   const [images, setImages] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
+  const [query, setQuery] = useState<string>('');
+  const [suggessions, setSuggessions] = useState<string[]>([]);
   const [visible, setVisible] = useState<boolean>(false);
   const [item, setItem] = useState<any>('');
   const [loader, setLoader] = useState<boolean>(false);
+
+  const handleSpellChecker = async () => {
+    const response = await spellChecker(searchTerm);
+    setSuggessions(response.slice(1, response.length));
+    setQuery(searchTerm);
+    getResponse(response[0]);
+  };
 
   const getResponse = async (word: string) => {
     try {
@@ -39,10 +50,23 @@ export default function HomeScreen({}: HomeScreenProps) {
         <Search
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
+          handleSpellChecker={handleSpellChecker}
           setLoader={setLoader}
         />
       </View>
 
+      {suggessions?.length > 0 && (
+        <>
+          <Text style={styles.suggestionHeaderText}>
+            You searched <Text style={styles.boldText}>{query}</Text>
+          </Text>
+          <Suggessions
+            handleClick={getResponse}
+            suggessions={suggessions}
+            searchTerm={searchTerm}
+          />
+        </>
+      )}
       {loader ? (
         <View style={styles.center}>
           <ActivityIndicator
