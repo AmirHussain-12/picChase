@@ -1,79 +1,112 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# PicChase
 
-# Getting Started
+PicChase is a mobile app designed to display images from a search term using a chosen image search API. The app features a custom spell checker to automatically correct user input mistakes, as well as a responsive image gallery for viewing search results.
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+## Features
 
-## Step 1: Start the Metro Server
+- **Image Search:** The app allows users to enter a search term in a text entry field and request image results by tapping a "Search" icon. The application is using Pixabay image search API to fetch images.
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+- **Custom Spell Checker:** The app includes a custom spell checker that automatically corrects specific user input mistakes, such as:
+  - Remove non-letter characters. `nyl;on` should auto-correct to `nylon`.
+  - Mistyped vowels. `ceku` should auto-correct to `cake`.
 
-To start Metro, run the following command from the _root_ of your React Native project:
+- **Responsive Gallery:** The search results are displayed in a responsive gallery style. Users can scroll through the images to view the results conveniently.
 
-```bash
-# using npm
-npm start
+- **Image Overlay:** Tapping on an image in the gallery will display it in a responsive overlay, allowing users to view the image in more detail.
 
-# OR using Yarn
-yarn start
+  This feature ensures that users receive relevant image results even if they make spelling errors.
+
+- **Error Handling:** The app includes error handling to provide a smooth user experience. It should gracefully handle network errors, API request failures, and other unexpected issues.
+
+## Assumptions and Decisions
+
+In the development of this app, the following assumptions and decisions have been made:
+
+- **Spell Checker:** A custom spell checker is implemented to correct specific types of user input mistakes, as described in the project requirements. If there would be multiple possible words against a mistyped word, it would show all possibilities as suggestion. This feature enhances the user experience by ensuring that search results are relevant.
+
+- **Algorithm:** Assuming in a spell checker, replacing vowels with vowels is the current algorithm. If the need arises to replace them with English alphabets, a single line in the `spellChecker.ts` must be modified.
+
+Replace `word = word.replace(/[aeiou]/g, '[aeiou]');` with `word = word.replace(/[aeiou]/g, '.');`
+
+## Demo
+
+[App Demo](https://s11.gifyu.com/images/S4xSo.gif)
+
+<img src="./src/assets/images/brokazy.gif?raw=true" width="200px">
+
+## Getting Started
+
+### Prerequisites
+
+- Ruby (ruby 3.2.1)
+- Node js (version 18 or higher)
+- Setup the development environment first.
+- [React Native CLI environment setup](https://reactnative.dev/docs/environment-setup)
+
+### How to install dependencies and run
+
+1. Clone the repository:
+ ```
+ git clone https://github.com/usmanasifzai/brokazy
+ ```
+
+2. Go to the project directory:
+ ```
+ cd appstem_prototype
+ ```
+
+3. Install dependencies:
+ ```
+ yarn install
+ ```
+
+4. Go to the ios directory:
+ ```
+ cd ios && pod install && cd ..
+ ```
+
+5. Run on Android:
+ ```
+ yarn android
+ ```
+
+6. Run on iOS:
+ ```
+ yarn ios
+ ```
+
+### Setup Guide for Android
+
+Once the android development environment setup is completed
+
+- Run `yarn android`
+
+Or you can install and setup android studio.
+Then Follow these steps:
+
+- Open `project > android` folder in android studio
+- Let android studio build all the gradle files and compile the project for android environment
+- Connect your android device or select an android emulator and start the project
+- Android studio will compile, build, and install the app
+
+### Setup Guide for iOS
+
+[You need a MAC to run this application on iOS](ttps://reactnative.dev/docs/environment-setup)
+Once the iOS development environment setup is completed
+
+- Run `yarn ios`
+
+Or you can install and setup XCode on MAC.
+Then Follow these steps:
+
+- Open `project > ios > appstem_prototype.xcworkspace` in XCode
+- Connect your iOS device or select an iOS emulator and start the project
+- XCode will compile, build, and install the app
+
+### Testing
+
+We have use jest and testing-library/react-native to write the test cases and to run the test cases
+
 ```
-
-## Step 2: Start your Application
-
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
-
-```bash
-# using npm
-npm run android
-
-# OR using Yarn
-yarn android
+yarn test
 ```
-
-### For iOS
-
-```bash
-# using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
-
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
-
-## Step 3: Modifying your App
-
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
