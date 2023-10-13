@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Alert, StyleSheet} from 'react-native';
+import {View, Text, Alert, StyleSheet, ActivityIndicator} from 'react-native';
+import CustomModal from '../components/CustomModal';
 import ListImages from '../components/ListImages';
 import Search from '../components/Search';
 import {getImages} from '../services/getImage';
-import Suggessions from '../components/Suggessions';
 import HomeIcon from '../assets/homeIcon';
 
 interface HomeScreenProps {}
@@ -11,10 +11,9 @@ interface HomeScreenProps {}
 export default function HomeScreen({}: HomeScreenProps) {
   const [images, setImages] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const [query, setQuery] = useState<string>('');
-  const [suggessions, setSuggessions] = useState<string[]>([]);
   const [visible, setVisible] = useState<boolean>(false);
   const [item, setItem] = useState<any>('');
+  const [loader, setLoader] = useState<boolean>(false);
 
   const getResponse = async (word: string) => {
     try {
@@ -37,21 +36,26 @@ export default function HomeScreen({}: HomeScreenProps) {
         <HomeIcon />
       </View>
       <View style={styles.mb}>
-        <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <Search
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          setLoader={setLoader}
+        />
       </View>
-      {suggessions?.length > 0 && (
-        <>
-          <Text style={styles.suggestionHeaderText}>
-            You searched <Text style={styles.boldText}>{query}</Text>
-          </Text>
-          <Suggessions
-            handleClick={getResponse}
-            suggessions={suggessions}
-            searchTerm={searchTerm}
+
+      {loader ? (
+        <View style={styles.center}>
+          <ActivityIndicator
+            size="large"
+            color="lightblue"
+            style={{transform: [{scaleX: 1.5}, {scaleY: 1.5}]}}
           />
-        </>
+        </View>
+      ) : (
+        <ListImages images={images} setVisible={setVisible} setItem={setItem} />
       )}
-      <ListImages images={images} setVisible={setVisible} setItem={setItem} />
+
+      <CustomModal visible={visible} closeModal={closeModal} item={item} />
     </View>
   );
 }
