@@ -26,13 +26,19 @@ In the development of this app, the following assumptions and decisions have bee
 
 - **Algorithm:** Assuming in a spell checker, replacing vowels with vowels is the current algorithm. If the need arises to replace them with English alphabets, a single line in the `spellChecker.ts` must be modified.
 
-Replace `word = word.replace(/[aeiou]/g, '[aeiou]');` with `word = word.replace(/[aeiou]/g, '.');`
+Replace
+
+`word = word.replace(/[aeiou]/g, '[aeiou]');` 
+
+with 
+
+`word = word.replace(/[aeiou]/g, '.');`
 
 ## Demo
 
-[App Demo](https://s11.gifyu.com/images/S4xSo.gif)
+[App Demo](https://s6.gifyu.com/images/S66me.gif)
 
-<img src="./src/assets/images/brokazy.gif?raw=true" width="200px">
+<img src="./app/assets/demo.gif?raw=true" width="200px">
 
 ## Getting Started
 
@@ -47,7 +53,7 @@ Replace `word = word.replace(/[aeiou]/g, '[aeiou]');` with `word = word.replace(
 
 1. Clone the repository:
  ```
- git clone https://github.com/usmanasifzai/brokazy
+ git clone https://github.com/AmirHussain-12/picChase.git
  ```
 
 2. Go to the project directory:
